@@ -28,14 +28,24 @@ class Catalogue {
     return matches;
   }
 
-  removeProductById(id) {
-    const match = this.products.find(
-      function (product) {
-        if (id === product.id) {
-          this.products.removeChild(id)
-        }
-      })
-    return false;
+ removeProductById(id) {
+    const removedProduct = this.findProductById(id);
+    if (removedProduct) {
+      this.products = this.products.filter(
+        (product) => product.id !== id 
+      );
+    }
+    return removedProduct;
+  }
+
+  checkReorders() {
+    const result = { type: "Reorder", productIds: [] };
+    this.products.forEach( (p) => {
+      if (p.quantityInStock <= p.reorderLevel) {
+        result.productIds.push(p.id);
+      }
+    });
+    return result;
   }
 
 }

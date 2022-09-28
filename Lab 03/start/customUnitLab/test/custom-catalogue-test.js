@@ -8,6 +8,14 @@ const p125 = new Product("A125", "A Product 2", 100, 10, 10.0);
 const p126 = new Product("A126", "A Widget 2", 100, 10, 10.0);
 const p127 = new Product("A127", "Bracket 1", 100, 10, 10.0)
 const p128 = new Product("A128", "Another Product 3", 100, 10, 10.0);
+
+const p13 = new Product("A123", "Product 1", 101, 10, 10.0);
+const p14 = new Product("A124", "Widget 1", 10, 10, 10.0);
+const p15 = new Product("A125", "A Product 2", 107, 10, 10.0);
+const p16 = new Product("A126", "A Widget 2", 10, 10, 10.0);
+const p17 = new Product("A127", "Bracket 1", 109, 10, 10.0)
+const p18 = new Product("A128", "Another Product 3", 180, 10, 10.0);
+
 let response
 
 console.log('Test addProduct')
@@ -70,8 +78,34 @@ else
   // Exercise 1 
 console.log("\tGiven an id for a product, we remove the product from the catalogue.")
 id = "A123";
-matches = cat.findProductById(id);
+matches = cat.removeProductById(id);
 if(id === p123.id)
 console.log('\tPassed')
 else
   console.log('\tFailed')
+
+// Exercise 2
+
+cat2 = new Catalogue("Exercise 2");
+cat2.addProduct(p13);
+cat2.addProduct(p14);
+cat2.addProduct(p15);
+cat2.addProduct(p16);
+cat2.addProduct(p17);
+cat2.addProduct(p18);
+
+const lessThanEqual = cat2.products.filter(function(p) {
+  const figs = p.quantityInStock <= p.reorderLevel
+  return figs
+})
+
+console.log(lessThanEqual)
+
+console.log("\tCheck for products whose quantity in stock is less than or equal to their reorder level.")
+if(cat2.checkReorders().productIds.length > 0){
+  console.log('\tPassed')
+  console.log(cat2.checkReorders())
+}
+else {
+console.log('\tFailed')
+}
